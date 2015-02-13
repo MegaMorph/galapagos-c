@@ -1,0 +1,70 @@
+#=============================================FILE LOCATIONS============================================
+galafile:   </path/to>/Setup/gala.files             # file containing image and directory path
+outdir:     </path/to>/Results/cat                  # output directory for combined SExtractor catalog
+#==========================================HDR SEXTRACTOR SETUP=========================================
+dosex:      n                                            # execute the SExtractor block?
+sexexe:     </path/to>/sex                               # SExtractor executable path
+setup:      </path/to>/cold.sex                          # setup filename(s) for SExtractor
+\           </path/to>/hot.sex                           # hot
+cat:        /cold.cat                                    # SExtractor catalogue file(s)
+\           /hot.cat                                     # hot  
+seg:        /coldseg.fits                                # segmentation image(s)
+\           /hotseg.fits                                 # hot 
+sex_par:    </path/to>/default.param                     # SExtractor parameters in .param format
+exptime:    768.047                                      # exposure time (actually read from header)
+zerop:      26.486                                       # zeropoint
+enlarge:    1.1                                          # enlarging factor for SExtractor ellipses to exclude hot objects
+out_par:    </path/to>/Setup/out.param                   # SExtractor output parameters
+out_seg:    /out_seg.fits                                # output segmentation image
+out_tab:    outtab.fits      	                         # SExtractor output table name(per tile)		
+chkim:      yes                                          # check images ("yes"/"no")? 
+check:      check.fits                                   # check image	
+chktype:    APERTURES                                    # check image modus
+#==========================================SKYMAP PREPARATION SETUP=====================================
+doskymap:   n                   # execute the skymap block?
+size:       3                   # Enlarging factor for KRON ellipses (4 ohne Contrib Targets)
+offset:     20                  # Definition of sky isophotes: Additional offset scale factor
+skymapname: map.fits            # skymap name
+#===============================================STAMP SETUP=============================================
+dostamps:   n                   # do stamp block?
+stampfile:  stamps              # descriptor file for postage stamps
+stampname:  s                   # preposition for postage stamps
+stampfac:   2.5                 # sizefactor for postage stamps
+#============================================SKY PREPARATION BLOCK======================================
+dosky:      n                   # execute sky preparation block AND GALFIT
+outsky:     outsky              # filename for sky parameters
+nslope:     15                  # number of measuring points for slope calculation
+bandsize:   60                  # definition of sky isophotes: Individual width
+isodist:    30                  # definition of sky isophotes: Distance between isophotes
+startrad:   1.                  # enlarging factor for SExtractor KRON ellipses to start procedure
+expand:     3                   # enlarging factor for KRON ellipses
+#===============================================GALFIT SETUP============================================
+dogalfit:       n               # execute the GALFIT block?
+dofourier:      n               # execute the GALFIT fourier modes?
+ncomponents:    1               # number Sersic components
+path:           galfit          # Galfit executable including path  
+object:         gf.obj          # Filename preposition for galfit objects
+galfitset:      GALFIT-Setup    # Filename prefix for GALFIT setup files       
+psf:            </path/to>/Setup/psf_stages_v003_full255.fits      # PSF filename including path    
+psffactor:      1               # PSF fine sampling factor relative to data
+badpix:         mask            # Bad pixel mask (FITS image or ASCII coord list)
+constraints:    constraint      # File with parameter constraints (ASCII file)
+re_max:         750             # constraint max Re (Half-light radius)
+mag_min:        -5              # constraint min magnitude deviation (minus)
+mag_max:        5               # constraint max magnitude deviation (plus)
+convbox:        257             # Size of PSF convolution box
+magzero:        26.486          # Magnitude photometric zeropoint
+platescale:     0.03            # Platescale of the images [arcsec/pixel]
+display:        regular         # Display type (regular, curses, both)oth)
+secenlarge:     1.5             # Scale factor by which SEx isophote is enlarged (for neighbours)
+magexclude:     5.              # Magnitude faint end limit for secondaries when fitting galaxies
+fluxextend:     1.4             # Power by which the FLUX_RADIUS ia raised to be converted to a half light radius
+distmax:        10.             # Maximum radius to search for contrib targets (IN ARCSEC!)
+magcrit:        3.              # Magnitude cut below which objects are considered as contributing
+contribmax:     2               # Maximum number of contributing targets
+#===================================================OUTPUT CATALOGUE SETUP===============================
+docat:          n               # execute catalogue combination block
+neighbortiles:  1               # maximum number of neighboring tiles 
+sexcomb:        combcat.fits    # filename for output catalogue in A
+
+

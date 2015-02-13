@@ -1,0 +1,175 @@
+STARTING GUIDE FOR GALAPAGOS-C
+
+1. Install libraries
+
+GALAPAGOS-C includes the Common Pipeline Library (CPL).
+GALAPAGOS-C is tested using the CPL version 6.3.1.
+It uses the libraries m cplui cplcore cext cpldrs and wcslib.
+Download CPL from: https://www.eso.org/sci/software/cpl/download.html
+and install:
+
+cpl-6.3.1.tar.gz
+wcslib-4.16.tar.bz2
+
+and if necessary:
+
+cfitsio3310.tar.gz
+fftw-3.3.3.tar.gz
+
+Make sure that MPI libraries are available on your machine and 
+find the paths to openmpi include directories and openmpi 
+lib directories.
+GALAPAGOS-C is tested using the module: openmpi-1.4.4
+
+On some machines, it is necessary to link the LD_LIBRARY_PATH to
+LD_LIBRARY_PATH=</path/to/your/cpl/lib>
+
+2. Install SExtractor and GALFIT
+
+This version of GALAPAGOS-C is tested for the latest SExtractor version 2.8.6 and 
+the latest GALFIT version 3.0.4.
+We also tested GALFIT version 2.1.c.
+Download SExtractor from: http://www.astromatic.net/software/sextractor
+Download GALFIT from: http://users.obs.carnegiescience.edu/peng/work/galfit/galfit.html
+and install. Make sure where your executables are as you need to specify the correct
+paths in the GALAPAGOS-C setup file (gala.setup).
+
+3. Compile the code
+
+Adjust the Makefile included in the Code folder.
+Replace the </path/to> place holders with the correct paths to the cpl and 
+openmpi include and lib directories on your machine.
+After that, type "make" to compile the code.
+
+The only allowed warnings to occur are warings for "unused variables" which should be ignored.
+
+4. Adjust the GALAPAGOS-C setup file (gala.setup) and the file list (gala.files)
+
+Link the according files and folders as described in these files.
+Link the according files also in the SExtractor setup files! (cold.sex, hot.sex, ...)
+
+5. Run the code
+
+On a supercomputer, GALAPAGOS-C usually is started using a submission script. 
+The syntax and the specified variables might change from
+from computer to computer. Read the supercomputer`s manual to construct a 
+correct starting script.
+Usually you should load the gcc and mpi modules first. Make sure that the GALFIT 
+modules are loaded.
+If these are not available ask the supervisor of the supercomputer to install the 
+modules.
+GALAPAGOS-C is tested using gcc version 4.7.0
+The command to run GALAPAGOS-C usually is similar to:
+
+mpirun -np NSLOTS ./GALAPAGOS "</path/to/GALAPAGOS-C/Setup/gala.setup>"
+
+where "NSLOTS" is the number of slots.
+
+Make sure to replace </path/to/GALAPAGOS-C/Setup/gala.setup> with the 
+correct path to your GALAPAGOS-C setup file.
+
+We provide a set of 3 STAGES testimages in the folder "Testimages" to test
+the correct installation of GALAPAGOS-C and for testruns.
+You can also download survey images from:
+ftp://archive.stsci.edu/pub/hlsp/stages/
+
+
+RUNNING GALAPAGOS ON A SIMPLE PC USING ECLIPSE
+
+1. If you would like to run GALAPAGOS-C on a personal computer we recommend a machine 
+with at least 4 CPUs.
+
+2. Install libraries
+
+GALAPAGOS-C includes the Common Pipeline Library (CPL).
+GALAPAGOS-C is tested using the CPL version 6.3.1.
+It uses cplui cplcore cext cpldrs and wcslib.
+Download CPL from: https://www.eso.org/sci/software/cpl/download.html
+and install:
+
+cpl-6.3.1.tar.gz
+wcslib-4.16.tar.bz2
+
+and if necessary:
+
+cfitsio3310.tar.gz
+fftw-3.3.3.tar.gz
+
+Make sure that MPI libraries are available on your machine.
+GALAPAGOS-C is tested using the module: openmpi-1.4.4
+
+On some machines, it is necessary to link the LD_LIBRARY_PATH to
+LD_LIBRARY_PATH=</path/to/your/cpl/lib>
+
+3. Install SExtractor and GALFIT
+
+This version of GALAPAGOS-C is tested for SExtractor version 2.8.6 and GALFIT version 3.0.4.
+Download SExtractor from: http://www.astromatic.net/software/sextractor
+Download GALFIT from: http://users.obs.carnegiescience.edu/peng/work/galfit/galfit.html
+and install. Make sure where your executables are as you need to specify the correct
+paths in the GALAPAGOS-C setup file (gala.setup).
+
+4. Install ECLIPSE
+
+Download ECLIPSE from https://www.eclipse.org/downloads/
+Use the version "ECLIPSE FOR PARALLEL DEVELOPERS"
+
+5. Setup GALAPAGOS-C with ECLIPSE
+
+5.1 Start a new C-Project by using "File" -> "New"  
+    and give it a name, e.g. GALAPAGOS-C.
+    Eclipse will ask for the project type and the Toolchain.
+    The project type must be "MPI Hello World C Project" and the Toolchain must be 
+    "Linux GCC".
+    Then click the "Finish" button.
+
+5.2 Open the workspace of your new C-Project, e.g. in the folder /path/to/GALAPAGOS-C
+    and open the src folder. 
+    Copy the complete GALAPAGOS-C code (astrolib_utils.c, astrolib_utils.h, gala_sextractor.c,
+    gala_sextractor.h, galapagos_utils.c, galapagos_utils.h, GALAPAGOS.C, sextractor_utils.c, 
+    sextractor_utils.h, string_ops.c, string_ops.h) into the source folder.
+
+5.3 Enter the projekt folder in the Project Explorer list in the eclipse environment 
+    and press F5 to refresh the content.
+
+5.4 Link all the include files and libraries to your project
+    Left click on the project folder in the Project Explorer list. Click on "Properties"
+    -> "C/C++Build" -> "Settings" and go to "Includes" in the right window.
+
+5.4.1 Add include paths by clicking on the green "+" symbol
+      Link the include paths to your CPL include library, e.g. 
+      /path/to/CPL/include
+      Link the include paths to your CPL wcs include library, e.g.
+      /path/to/CPL/wcslib/include/wcslib
+      Link the include paths to your OPENMPI include library, e.g.
+      /usr/lib/openmpi/include
+
+5.4.2 Link your CPL and OPENMPI libraries by clicking on "Libraries" 
+      Add the libraries by clicking on the green "+" symbol
+      Add m, cplui, cplcore, cext, cpldrs
+      Add the library seach paths below to your CPL library, your WCS library and your 
+      OPENMPI library, e.g.
+      /path/to/CPL/lib
+      /path/to/wcslib/lib
+      /usr/lib/openmpi/lib 
+      and click "Apply"
+
+5.5 Go back to the Project Explorer and click "Project" -> "Build Project"
+    Click on grey arrow next to the green "Play" Button on top an go to 
+    "Run Configurations"
+    Go to "Parallel Application" in the list and left click on "New"
+    Go to the list on the right and specify the number of processor under "Resources"
+    Go to "Application" and link the path to your Debug Folder under "Application Program"
+    Go to "Arguments" and enter the complete path to your GALAPAGOS-C setup file (e.g. gala.setup)
+    	in speech marks
+    Go to "Environment" and click "New" to specify your LD_LIBRARY_PATH
+    The must be: LD_LIBRARY_PATH and the value must be the path to your CPL libraries, e.g.
+    /path/to/CPL/lib
+    Start the Resource Manager and click on "Apply" 
+
+5.6 Run the code by either clicking on "Run" or clicking on the green "PLAY" Button on top
+
+
+For any questions:
+
+You can send an email to: andreas.hiemer@uibk.ac.at
